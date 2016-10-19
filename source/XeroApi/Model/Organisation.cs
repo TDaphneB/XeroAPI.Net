@@ -2,51 +2,69 @@
 
 namespace XeroApi.Model
 {
-    public class Organisation : EndpointModelBase
-    {
-        public string Name;
+	public class Organisation : EndpointModelBase
+	{
+		public string Name;
 
-        public string LegalName;
+		public string LegalName;
 
-        public DateTime CreatedDateUTC;
+		public DateTime CreatedDateUTC;
 
-        public string APIKey;
+		public string APIKey;
 
-        public bool PaysTax;
+		public bool PaysTax;
 
-        public string Version;
+		public string Version;
 
-        public string OrganisationType;
+		public string OrganisationType;
 
-        public string BaseCurrency;
+		public string BaseCurrency;
 
-        public string CountryCode;
+		public string CountryCode;
 
-        public bool IsDemoCompany;
+		public bool IsDemoCompany;
 
-        public DateTime? PeriodLockDate;
+		public DateTime? PeriodLockDate;
 
-        public DateTime? EndOfYearLockDate;
+		public DateTime? EndOfYearLockDate;
 
-        public string TaxNumber;
+		public string TaxNumber;
 
-        public int FinancialYearEndDay;
+		public int FinancialYearEndDay;
 
-        public int FinancialYearEndMonth;
-        
-        public string Timezone;
-        
-        public string ShortCode;
+		public int FinancialYearEndMonth;
 
-        public Addresses Addresses;
+		public string Timezone;
 
-        public override string ToString()
-        {
-            return string.Format("Organisation:{0}", Name);
-        }
-    }
+		public string ShortCode;
 
-    public class Organisations : ModelList<Organisation>
-    {
-    }
+		public Addresses Addresses;
+
+		public Phones Phones;
+
+		public ExternalLinks ExternalLinks;
+
+		public PaymentTerms PaymentTerms;
+
+		public string OrganisationStatus;
+
+		public string RegistrationNumber;
+
+		public string SalesTaxBasis;
+
+		public string SalesTaxPeriod;
+
+		public string OrganisationEntityType;
+
+		public string LineOfBusiness;
+
+		public override string ToString( )
+		{
+			return string.Format( "Organisation:{0}", Name );
+		}
+	}
+
+	public class Organisations : ModelList<Organisation>
+	{
+	}
 }

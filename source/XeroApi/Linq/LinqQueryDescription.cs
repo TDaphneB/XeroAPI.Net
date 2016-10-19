@@ -141,6 +141,19 @@ namespace XeroApi.Linq
 			get { return _skipQuery.ToString( ); }
 		}
 
+		public string IncludeArchived
+		{
+			get
+			{
+				if ( ElementName == "TrackingCategory" )
+				{
+					return "true";
+				}
+
+				return "";
+			}
+		}
+
 		/// <summary>
 		/// Gets the query string parameter collection.
 		/// </summary>
@@ -160,6 +173,9 @@ namespace XeroApi.Linq
 
 				if ( !string.IsNullOrEmpty( Offset ) )
 					collectionToReturn.Add( "offset", Offset );
+
+				if ( !string.IsNullOrEmpty( IncludeArchived ) )
+					collectionToReturn.Add( "includeArchived", IncludeArchived );
 
 				return collectionToReturn;
 			}
