@@ -2,55 +2,57 @@ using System;
 
 namespace XeroApi.Model
 {
-    public class BankTransaction : EndpointModelBase
-    {
-        [ItemId]
-        public Guid? BankTransactionID { get; set; }
+	public class BankTransaction : EndpointModelBase, IAttachmentParent
+	{
+		[ItemId]
+		public Guid? BankTransactionID { get; set; }
 
-        public Account BankAccount { get; set; }
+		public Account BankAccount { get; set; }
 
-        public string Type { get; set; }
+		public string Type { get; set; }
 
-        public string Reference { get; set; }
-        
-        public string Url { get; set; }
+		public string Reference { get; set; }
 
-        public string ExternalLinkProviderName { get; set; }
+		public string Url { get; set; }
 
-        public bool IsReconciled { get; set; }
+		public string ExternalLinkProviderName { get; set; }
 
-        public decimal? CurrencyRate { get; set; }
+		public bool IsReconciled { get; set; }
 
-        public Contact Contact { get; set; }
+		public decimal? CurrencyRate { get; set; }
 
-        public DateTime? Date { get; set; }
+		public Contact Contact { get; set; }
 
-        public DateTime? DueDate { get; set; }
+		public DateTime? Date { get; set; }
 
-        public virtual Guid? BrandingThemeID { get; set; }
+		public DateTime? DueDate { get; set; }
 
-        public virtual string Status { get; set; }
+		public virtual Guid? BrandingThemeID { get; set; }
 
-        public LineAmountType LineAmountTypes { get; set; }
+		public virtual string Status { get; set; }
 
-        public virtual LineItems LineItems { get; set; }
+		public LineAmountType LineAmountTypes { get; set; }
 
-        public virtual decimal? SubTotal { get; set; }
+		public virtual LineItems LineItems { get; set; }
 
-        public virtual decimal? TotalTax { get; set; }
+		public virtual decimal? SubTotal { get; set; }
 
-        public virtual decimal? Total { get; set; }
+		public virtual decimal? TotalTax { get; set; }
 
-        [ItemUpdatedDate]
-        public DateTime? UpdatedDateUTC { get; set; }
+		public virtual decimal? Total { get; set; }
 
-        public virtual string CurrencyCode { get; set; }
+		[ItemUpdatedDate]
+		public DateTime? UpdatedDateUTC { get; set; }
 
-        public DateTime? FullyPaidOnDate { get; set; }
-    }
+		public virtual string CurrencyCode { get; set; }
+
+		public DateTime? FullyPaidOnDate { get; set; }
+
+		public Attachments Attachments { get; set; }
+	}
 
 
-    public class BankTransactions : ModelList<BankTransaction>
-    {
-    }
+	public class BankTransactions : ModelList<BankTransaction>
+	{
+	}
 }

@@ -2,69 +2,71 @@ using System;
 
 namespace XeroApi.Model
 {
-    public class CreditNote : EndpointModelBase
-    {
-        [ItemId]
-        public Guid CreditNoteID { get; set; }
+	public class CreditNote : EndpointModelBase, IAttachmentParent
+	{
+		[ItemId]
+		public Guid CreditNoteID { get; set; }
 
-        [ItemNumber]
-        public string CreditNoteNumber { get; set; }
+		[ItemNumber]
+		public string CreditNoteNumber { get; set; }
 
-        [ItemUpdatedDate]
-        public DateTime? UpdatedDateUTC { get; set; }
+		[ItemUpdatedDate]
+		public DateTime? UpdatedDateUTC { get; set; }
 
-        public string Type { get; set; }
+		public string Type { get; set; }
 
-        public string Reference { get; set; }
-        
-        public bool? SentToContact { get; set; }
+		public string Reference { get; set; }
 
-        public decimal? AppliedAmount { get; set; }
-        
-        public decimal RemainingCredit { get; set; }
+		public bool? SentToContact { get; set; }
 
-        public decimal? CurrencyRate { get; set; }
+		public decimal? AppliedAmount { get; set; }
 
-        public Contact Contact { get; set; }
+		public decimal RemainingCredit { get; set; }
 
-        public DateTime? Date { get; set; }
+		public decimal? CurrencyRate { get; set; }
 
-        public DateTime? DueDate { get; set; }
+		public Contact Contact { get; set; }
 
-        public virtual Guid? BrandingThemeID { get; set; }
+		public DateTime? Date { get; set; }
 
-        public virtual string Status { get; set; }
+		public DateTime? DueDate { get; set; }
 
-        public LineAmountType LineAmountTypes { get; set; }
+		public virtual Guid? BrandingThemeID { get; set; }
 
-        public virtual LineItems LineItems { get; set; }
+		public virtual string Status { get; set; }
 
-        public virtual decimal? SubTotal { get; set; }
+		public LineAmountType LineAmountTypes { get; set; }
 
-        public virtual decimal? TotalTax { get; set; }
+		public virtual LineItems LineItems { get; set; }
 
-        public virtual decimal? Total { get; set; }
+		public virtual decimal? SubTotal { get; set; }
 
-        public virtual string CurrencyCode { get; set; }
+		public virtual decimal? TotalTax { get; set; }
 
-        public DateTime? FullyPaidOnDate { get; set; }
+		public virtual decimal? Total { get; set; }
 
-        public Allocations Allocations { get; set; }
-    }
-    
-    public class CreditNotes : ModelList<CreditNote>
-    {
-    }
+		public virtual string CurrencyCode { get; set; }
 
-    public class Allocation : EndpointModelBase
-    {
-        public decimal AppliedAmount { get; set; }
-        public DateTime Date { get; set; }
-        public Invoice Invoice { get; set; }
-    }
+		public DateTime? FullyPaidOnDate { get; set; }
 
-    public class Allocations : ModelList<Allocation>
-    {
-    }
+		public Allocations Allocations { get; set; }
+
+		public Attachments Attachments { get; set; }
+	}
+
+	public class CreditNotes : ModelList<CreditNote>
+	{
+	}
+
+	public class Allocation : EndpointModelBase
+	{
+		public decimal AppliedAmount { get; set; }
+		public DateTime Date { get; set; }
+		public Invoice Invoice { get; set; }
+	}
+
+	public class Allocations : ModelList<Allocation>
+	{
+	}
 
 }

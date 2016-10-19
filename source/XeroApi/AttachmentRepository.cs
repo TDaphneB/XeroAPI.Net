@@ -5,88 +5,134 @@ using XeroApi.Model;
 
 namespace XeroApi
 {
-    public class AttachmentRepository
-    {
-        private readonly IIntegrationProxy _integrationProxy;
+	public class AttachmentRepository
+	{
+		private readonly IIntegrationProxy _integrationProxy;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AttachmentRepository"/> class.
-        /// </summary>
-        /// <param name="integrationProxy">The integration proxy.</param>
-        internal AttachmentRepository(IIntegrationProxy integrationProxy)
-        {
-            _integrationProxy = integrationProxy;    
-        }
-
-
-        // POST
-
-        public Attachment UpdateOrCreate<TModel>(TModel model, FileInfo fileInfo)
-            where TModel : ModelBase, IAttachmentParent
-        {
-            return UpdateOrCreate(model, new Attachment(fileInfo));
-        }
-
-        public Attachment UpdateOrCreate<TModel>(TModel model, Attachment attachment)
-            where TModel : ModelBase, IAttachmentParent
-        {
-            string xml = _integrationProxy.UpdateOrCreateAttachment(
-                typeof(TModel).Name,
-                ModelTypeHelper.GetModelItemId(model),
-                attachment);
-
-            Response response = ModelSerializer.DeserializeTo<Response>(xml);
-
-            return response.Attachments.First();
-        }
+		/// <summary>
+		/// Initializes a new instance of the <see cref="AttachmentRepository"/> class.
+		/// </summary>
+		/// <param name="integrationProxy">The integration proxy.</param>
+		internal AttachmentRepository( IIntegrationProxy integrationProxy )
+		{
+			_integrationProxy = integrationProxy;
+		}
 
 
-        // PUT
+		// POST
 
-        public Attachment Create<TModel>(TModel model, FileInfo fileInfo)
-            where TModel : ModelBase, IAttachmentParent
-        {
-            return Create(model, new Attachment(fileInfo));
-        }
+		public Attachment UpdateOrCreate<TModel>( TModel model, FileInfo fileInfo )
+			where TModel : ModelBase, IAttachmentParent
+		{
+			return UpdateOrCreate( model, new Attachment( fileInfo ) );
+		}
 
-        public Attachment Create<TModel>(TModel model, Attachment attachment)
-            where TModel : ModelBase, IAttachmentParent
-        {
-            string xml = _integrationProxy.CreateAttachment(
-                typeof(TModel).Name,
-                ModelTypeHelper.GetModelItemId(model),
-                attachment);
+		public Attachment UpdateOrCreate<TModel>( TModel model, Attachment attachment )
+			where TModel : ModelBase, IAttachmentParent
+		{
+			string xml = _integrationProxy.UpdateOrCreateAttachment(
+				typeof( TModel ).Name,
+				ModelTypeHelper.GetModelItemId( model ),
+				attachment );
 
-            return ModelSerializer.DeserializeTo<Response>(xml).Attachments.First();
-        }
+			Response response = ModelSerializer.DeserializeTo<Response>( xml );
+
+			return response.Attachments.First( );
+		}
 
 
-        // GET (one)
+		// PUT
 
-        public Attachment GetAttachmentFor<TModel>(TModel model)
-            where TModel : ModelBase, IAttachmentParent
-        {
-            // List the attachments against this model.
-            var modelItemId = ModelTypeHelper.GetModelItemId(model);
+		public Attachment Create<TModel>( TModel model, FileInfo fileInfo )
+			where TModel : ModelBase, IAttachmentParent
+		{
+			return Create( model, new Attachment( fileInfo ) );
+		}
 
-            var allAttachmentsXml = _integrationProxy.FindAttachments(typeof(TModel).Name, modelItemId);
+		public Attachment Create<TModel>( TModel model, Attachment attachment )
+			where TModel : ModelBase, IAttachmentParent
+		{
+			string xml = _integrationProxy.CreateAttachment(
+				typeof( TModel ).Name,
+				ModelTypeHelper.GetModelItemId( model ),
+				attachment );
 
-            var allAttachments = ModelSerializer.DeserializeTo<Response>(allAttachmentsXml).Attachments;
+			return ModelSerializer.DeserializeTo<Response>( xml ).Attachments.First( );
+		}
 
-            if (allAttachments == null || allAttachments.Count == 0)
-            {
-                return null;
-            }
 
-            var theFirstAttachment = allAttachments.First();
+		// GET (one)
 
-            // Get the attachment content
-            var content = _integrationProxy.FindOneAttachment(
-                typeof (TModel).Name,
-                modelItemId,
-                theFirstAttachment.AttachmentID.ToString());
+		public Attachment GetAttachmentFor<TModel>( TModel model )
+			where TModel : ModelBase, IAttachmentParent
+		{
+			// List the attachments against this model.
+			var modelItemId = ModelTypeHelper.GetModelItemId( model );
 
-            return theFirstAttachment.WithContent(content);
-        }
-    }
+			var allAttachmentsXml = _integrationProxy.FindAttachments( typeof( TModel ).Name, modelItemId );
+
+			var allAttachments = ModelSerializer.DeserializeTo<Response>( allAttachmentsXml ).Attachments;
+
+			if ( allAttachments == null || allAttachments.Count == 0 )
+			{
+				return null;
+			}
+
+			var theFirstAttachment = allAttachments.First( );
+
+			// Get the attachment content
+			var content = _integrationProxy.FindOneAttachment(
+				typeof( TModel ).Name,
+				modelItemId,
+				theFirstAttachment.AttachmentID.ToString( ) );
+
+			return theFirstAttachment.WithContent( content );
+		}
+
+		// GET (one - by attachment Id)
+
+		public Attachment GetAttachmentFor<TModel>( TModel model, Attachment attachment )
+			where TModel : ModelBase, IAttachmentParent
+		{
+			// List the attachments against this model.
+			var modelItemId = ModelTypeHelper.GetModelItemId( model );
+
+			var allAttachmentsXml = _integrationProxy.FindAttachments( typeof( TModel ).Name, modelItemId );
+
+			var allAttachments = ModelSerializer.DeserializeTo<Response>( allAttachmentsXml ).Attachments;
+
+			if ( allAttachments == null || allAttachments.Count == 0 )
+			{
+				return null;
+			}
+
+			// Get the attachment content
+			var content = _integrationProxy.FindOneAttachment(
+				typeof( TModel ).Name,
+				modelItemId,
+				attachment.AttachmentID.ToString( ) );
+
+			return attachment.WithContent( content );
+		}
+
+		// GET (all - without content)
+
+		public Attachments GetAttachmentsWithoutContentFor<TModel>( TModel model )
+			where TModel : ModelBase, IAttachmentParent
+		{
+			// List the attachments against this model.
+			var modelItemId = ModelTypeHelper.GetModelItemId( model );
+
+			var allAttachmentsXml = _integrationProxy.FindAttachments( typeof( TModel ).Name, modelItemId );
+
+			Attachments allAttachments = ModelSerializer.DeserializeTo<Response>( allAttachmentsXml ).Attachments;
+
+			if ( allAttachments == null || allAttachments.Count == 0 )
+			{
+				return null;
+			}
+
+			return allAttachments;
+		}
+	}
 }

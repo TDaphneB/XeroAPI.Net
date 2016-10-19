@@ -29,6 +29,18 @@ namespace XeroApi.Model
 
         [ReadOnly]
         public decimal Total { get; set; }
+
+		[ReadOnly]
+		public decimal AmountDue { get; set; }
+
+		[ReadOnly]
+		public decimal AmountPaid { get; set; }
+
+		[ReadOnly]
+		public DateTime PaymentDueDate { get; set; }
+
+		[ReadOnly]
+		public DateTime ReportingDate { get; set; }
     }
 
     public class ExpenseClaims : ModelList<ExpenseClaim>

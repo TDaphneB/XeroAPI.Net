@@ -46,6 +46,8 @@ namespace XeroApi.Model
 
         [ReadOnly]
         public bool HasAttachments { get; set; }
+
+		public Attachments Attachments { get; set; }
     }
 
     public class Receipts : ModelList<Receipt>
