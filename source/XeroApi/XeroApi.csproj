@@ -75,6 +75,7 @@
     <Compile Include="Model\Currency.cs" />
     <Compile Include="Model\Employee.cs" />
     <Compile Include="Model\ExpenseClaim.cs" />
+    <Compile Include="Model\ExternalLink.cs" />
     <Compile Include="Model\InventoryPrice.cs" />
     <Compile Include="Model\Item.cs" />
     <Compile Include="Model\LineAmountType.cs" />
