@@ -39,10 +39,7 @@ namespace XeroApi.Model
 
 		[ReadOnly]
 		public bool? SentToContact { get; set; }
-
-		[ReadOnly]
-		public bool? HasAttachments { get; set; }
-
+		
 		public decimal? CurrencyRate { get; set; }
 
 		public Contact Contact { get; set; }
@@ -75,6 +72,9 @@ namespace XeroApi.Model
 		public DateTime? ExpectedPaymentDate { get; set; }
 
 		public DateTime? PlannedPaymentDate { get; set; }
+
+		[ReadOnly]
+		public bool HasAttachments { get; set; }
 
 		public Attachments Attachments { get; set; }
 

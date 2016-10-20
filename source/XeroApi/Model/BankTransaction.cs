@@ -48,6 +48,7 @@ namespace XeroApi.Model
 
 		public DateTime? FullyPaidOnDate { get; set; }
 
+		[ReadOnly]
 		public bool HasAttachments { get; set; }
 
 		public Attachments Attachments { get; set; }

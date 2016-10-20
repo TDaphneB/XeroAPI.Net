@@ -33,6 +33,9 @@ namespace XeroApi.Model
 
 		public string ReportingCodeName { get; set; }
 
+		[ReadOnly]
+		public bool HasAttachments { get; set; }
+
 		public Attachments Attachments { get; set; }
 
 		// Added for v2.14

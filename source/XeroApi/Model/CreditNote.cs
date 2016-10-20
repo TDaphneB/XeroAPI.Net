@@ -51,6 +51,9 @@ namespace XeroApi.Model
 
 		public Allocations Allocations { get; set; }
 
+		[ReadOnly]
+		public bool HasAttachments { get; set; }
+
 		public Attachments Attachments { get; set; }
 	}
 

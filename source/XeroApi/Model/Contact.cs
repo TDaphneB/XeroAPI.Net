@@ -55,6 +55,9 @@ namespace XeroApi.Model
 
 		public PaymentTerms PaymentTerms { get; set; }
 
+		[ReadOnly]
+		public bool HasAttachments { get; set; }
+
 		public Attachments Attachments { get; set; }
 
 		public override string ToString( )
