@@ -26,6 +26,8 @@ namespace XeroApi.Model
 		[XmlArrayItem( "JournalLine" )]
 		public ManualJournalLineItems JournalLines { get; set; }
 
+		public bool HasAttachments { get; set; }
+
 		public Attachments Attachments { get; set; }
 	}
 
